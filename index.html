@@ -7,43 +7,31 @@
   <style>
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       background: #f5f7fa;
       color: #333;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Animaciones */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     @keyframes zoomIn {
-      from { transform: scale(0.9); opacity: 0; }
+      from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
     @keyframes float {
       0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-12px); }
       100% { transform: translateY(0px); }
     }
 
-    /* Cursor luminoso */
-    .cursor-light {
-      position: fixed;
-      top: 0; left: 0;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      pointer-events: none;
-      background: rgba(79,195,247,0.3);
-      box-shadow: 0 0 20px rgba(79,195,247,0.6);
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s linear;
-      z-index: 2000;
-    }
-
-    /* Encabezado con recuadro */
     header {
       display: flex;
       justify-content: center;
@@ -60,7 +48,11 @@
       padding: 40px 20px;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      animation: zoomIn 0.8s ease-in-out;
+      animation: zoomIn 1.2s ease-in-out;
+      transition: transform 0.5s ease;
+    }
+    .title-box:hover {
+      transform: scale(1.03);
     }
 
     header h1 {
@@ -69,17 +61,17 @@
       color: #3a9d64;
       letter-spacing: 25px;
       text-transform: uppercase;
+      animation: fadeInUp 1.5s ease;
     }
 
-    /* Sección macroempresa */
     .bio-section {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 40px;
-      padding: 60px 20px;
+      padding: 80px 20px;
       background: #ffffff;
-      animation: fadeIn 1s ease-in-out;
+      animation: fadeInUp 1.5s ease-in-out;
     }
 
     .bio-logo {
@@ -92,41 +84,13 @@
       max-width: 100%;
       border-radius: 20px;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: zoomIn 0.9s ease-in-out, float 4s infinite ease-in-out;
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+      animation: float 5s infinite ease-in-out;
     }
 
     .bio-logo img:hover {
-      transform: scale(1.1) rotate(3deg);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.4);
-    }
-
-    /* Modal logo */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      padding-top: 60px;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.9);
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 80%;
-      border-radius: 20px;
-      animation: zoomIn 0.5s ease-in-out;
-    }
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
+      transform: scale(1.12) rotate(2deg);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.3);
     }
 
     .bio-intro {
@@ -137,13 +101,49 @@
       font-size: 1.3em;
       line-height: 1.8;
       box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-      animation: fadeIn 1.2s ease-in-out;
+      animation: fadeInUp 2s ease;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .bio-intro:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
     }
 
-    /* Sección microempresas con video */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 80%;
+      border-radius: 20px;
+      animation: zoomIn 0.6s ease-in-out;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .close:hover {
+      transform: scale(1.2);
+    }
+
     .micro-section {
       position: relative;
-      padding: 80px 20px;
+      padding: 100px 20px;
       text-align: center;
       overflow: hidden;
       color: white;
@@ -171,7 +171,7 @@
       gap: 40px;
       margin-bottom: 60px;
       flex-wrap: wrap;
-      animation: fadeIn 1.2s ease-in-out;
+      animation: fadeInUp 1.5s ease-in-out;
     }
 
     .micro-card {
@@ -180,11 +180,11 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
       cursor: pointer;
       background: white;
-      border: 4px solid #4fc3f7; /* Borde azul agua */
-      animation: zoomIn 1s ease-in-out;
+      border: 4px solid #4fc3f7;
+      animation: zoomIn 1.5s ease-in-out;
     }
 
     .micro-card img {
@@ -192,27 +192,26 @@
       height: 100%;
       object-fit: contain;
       background: white;
+      transition: transform 0.6s ease;
     }
 
     .micro-card:hover {
-      transform: scale(1.12) rotate(-2deg);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+      transform: scale(1.15) rotate(-3deg);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.6);
+    }
+    .micro-card:hover img {
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
 
-  <!-- Cursor luminoso -->
-  <div class="cursor-light"></div>
-
-  <!-- Título con recuadro -->
   <header>
     <div class="title-box">
       <h1>BIOFASHION</h1>
     </div>
   </header>
 
-  <!-- Macroempresa -->
   <section class="bio-section">
     <div class="bio-logo">
       <img id="logoImg" src="https://i.postimg.cc/DzH3rYTx/f58605bd-6eab-4719-9994-350dbb104678.jpg" alt="Logo Biofashion">
@@ -225,13 +224,11 @@
     </div>
   </section>
 
-  <!-- Modal del logo -->
   <div id="logoModal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="modalImg">
   </div>
 
-  <!-- Microempresas -->
   <section class="micro-section">
     <video autoplay muted loop playsinline class="bg-video">
       <source src="https://cdn.pixabay.com/video/2019/12/30/30703-383980330_tiny.mp4" type="video/mp4">
@@ -239,19 +236,28 @@
     <div class="overlay"></div>
 
     <div class="micro-grid">
-      <a href="#" class="micro-card"><img src="https://i.postimg.cc/RVLmkR70/second-life.jpg" alt="Second Life"></a>
-      <a href="#" class="micro-card"><img src="https://i.postimg.cc/JhnRckBz/ecofashion.jpg" alt="Ecofashion"></a>
-      <a href="#" class="micro-card"><img src="https://i.postimg.cc/bv2Bhy7R/biowash12222.jpg" alt="Biowash"></a>
+      <a href="secondlife.html" class="micro-card">
+        <img src="https://i.postimg.cc/RVLmkR70/second-life.jpg" alt="Second Life">
+      </a>
+      <a href="ecofashion.html" class="micro-card">
+        <img src="https://i.postimg.cc/JhnRckBz/ecofashion.jpg" alt="Ecofashion">
+      </a>
+      <a href="biowash.html" class="micro-card">
+        <img src="https://i.postimg.cc/bv2Bhy7R/biowash12222.jpg" alt="Biowash">
+      </a>
     </div>
 
     <div class="micro-grid">
-      <a href="#" class="micro-card"><img src="https://i.postimg.cc/VkZxwHdz/ecomarketing.jpg" alt="Eco Marketing"></a>
-      <a href="#" class="micro-card"><img src="https://i.postimg.cc/vBfkWYXm/ta-usada.jpg" alt="Tà Usada"></a>
+      <a href="ecomarketing.html" class="micro-card">
+        <img src="https://i.postimg.cc/VkZxwHdz/ecomarketing.jpg" alt="Eco Marketing">
+      </a>
+      <a href="tausada.html" class="micro-card">
+        <img src="https://i.postimg.cc/vBfkWYXm/ta-usada.jpg" alt="Tà Usada">
+      </a>
     </div>
   </section>
 
   <script>
-    // Modal del logo
     const modal = document.getElementById("logoModal");
     const logo = document.getElementById("logoImg");
     const modalImg = document.getElementById("modalImg");
@@ -269,30 +275,6 @@
         modal.style.display = "none";
       }
     }
-
-    // Cursor luminoso sigue al mouse
-    const cursorLight = document.querySelector(".cursor-light");
-    document.addEventListener("mousemove", (e) => {
-      cursorLight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-    });
-
-    // Movimiento 3D de tarjetas con el mouse
-    const cards = document.querySelectorAll(".micro-card, .title-box, .bio-logo img");
-    cards.forEach(card => {
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / 15).toFixed(2);
-        const rotateY = ((x - centerX) / 15).toFixed(2);
-        card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-      });
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "rotateX(0) rotateY(0) scale(1)";
-      });
-    });
   </script>
 
 </body>
