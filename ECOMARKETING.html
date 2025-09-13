@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biofashion</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Cursor luminoso */
+    .cursor-light {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: rgba(79,195,247,0.3);
+      box-shadow: 0 0 20px rgba(79,195,247,0.6);
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s linear;
+      z-index: 2000;
+    }
+
+    /* Encabezado con recuadro */
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #6ac77b, #3a9d64);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .title-box {
+      background: white;
+      width: 100%;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: zoomIn 0.8s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 5em;
+      margin: 0;
+      color: #3a9d64;
+      letter-spacing: 25px;
+      text-transform: uppercase;
+    }
+
+    /* Sección macroempresa */
+    .bio-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 60px 20px;
+      background: #ffffff;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .bio-logo {
+      flex: 1;
+      text-align: center;
+    }
+
+    .bio-logo img {
+      width: 350px;
+      max-width: 100%;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomIn 0.9s ease-in-out, float 4s infinite ease-in-out;
+    }
+
+    .bio-logo img:hover {
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+    }
+
+    /* Modal logo */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 80%;
+      border-radius: 20px;
+      animation: zoomIn 0.5s ease-in-out;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .bio-intro {
+      flex: 2;
+      background: linear-gradient(135deg, #f9f9f9, #e9f7ef);
+      padding: 35px;
+      border-radius: 20px;
+      font-size: 1.3em;
+      line-height: 1.8;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    /* Sección microempresas con video */
+    .micro-section {
+      position: relative;
+      padding: 80px 20px;
+      text-align: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    .bg-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: -1;
+    }
+
+    .micro-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .micro-card {
+      width: 220px;
+      height: 220px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      background: white;
+      border: 4px solid #4fc3f7; /* Borde azul agua */
+      animation: zoomIn 1s ease-in-out;
+    }
+
+    .micro-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: white;
+    }
+
+    .micro-card:hover {
+      transform: scale(1.12) rotate(-2deg);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor luminoso -->
+  <div class="cursor-light"></div>
+
+  <!-- Título con recuadro -->
+  <header>
+    <div class="title-box">
+      <h1>BIOFASHION</h1>
+    </div>
+  </header>
+
+  <!-- Macroempresa -->
+  <section class="bio-section">
+    <div class="bio-logo">
+      <img id="logoImg" src="https://i.postimg.cc/DzH3rYTx/f58605bd-6eab-4719-9994-350dbb104678.jpg" alt="Logo Biofashion">
+    </div>
+    <div class="bio-intro">
+      La moda es una de las industrias con mayor impacto ambiental, lo que impulsa la necesidad de adoptar modelos sostenibles. 
+      Esta macroempresa propone una alternativa ecológica basada en procesos responsables: obtención de prendas con materiales reciclados o sostenibles, 
+      transformación y rediseño para alargar su vida útil, higienización eficiente con bajo consumo de recursos y comercialización bajo principios de economía circular. 
+      Con ello, buscamos ofrecer moda competitiva y de calidad, reduciendo la huella ambiental y promoviendo un consumo consciente.
+    </div>
+  </section>
+
+  <!-- Modal del logo -->
+  <div id="logoModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
+
+  <!-- Microempresas -->
+  <section class="micro-section">
+    <video autoplay muted loop playsinline class="bg-video">
+      <source src="https://cdn.pixabay.com/video/2022/03/26/111977-692666934_tiny.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <div class="micro-grid">
+      <a href="#" class="micro-card"><img src="https://i.postimg.cc/RVLmkR70/second-life.jpg" alt="Second Life"></a>
+      <a href="#" class="micro-card"><img src="https://i.postimg.cc/JhnRckBz/ecofashion.jpg" alt="Ecofashion"></a>
+      <a href="#" class="micro-card"><img src="https://i.postimg.cc/bv2Bhy7R/biowash12222.jpg" alt="Biowash"></a>
+    </div>
+
+    <div class="micro-grid">
+      <a href="#" class="micro-card"><img src="https://i.postimg.cc/VkZxwHdz/ecomarketing.jpg" alt="Eco Marketing"></a>
+      <a href="#" class="micro-card"><img src="https://i.postimg.cc/vBfkWYXm/ta-usada.jpg" alt="Tà Usada"></a>
+    </div>
+  </section>
+
+  <script>
+    // Modal del logo
+    const modal = document.getElementById("logoModal");
+    const logo = document.getElementById("logoImg");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    logo.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+    }
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Cursor luminoso sigue al mouse
+    const cursorLight = document.querySelector(".cursor-light");
+    document.addEventListener("mousemove", (e) => {
+      cursorLight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+
+    // Movimiento 3D de tarjetas con el mouse
+    const cards = document.querySelectorAll(".micro-card, .title-box, .bio-logo img");
+    cards.forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / 15).toFixed(2);
+        const rotateY = ((x - centerX) / 15).toFixed(2);
+        card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+      });
+    });
+  </script>
+
+</body>
+</html>
