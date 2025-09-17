@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biofashion</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #6ac77b, #3a9d64);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .title-box {
+      background: white;
+      width: 100%;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: zoomIn 1.2s ease-in-out;
+      transition: transform 0.5s ease;
+    }
+    .title-box:hover {
+      transform: scale(1.03);
+    }
+
+    header h1 {
+      font-size: 5em;
+      margin: 0;
+      color: #3a9d64;
+      letter-spacing: 25px;
+      text-transform: uppercase;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .bio-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 80px 20px;
+      background: #ffffff;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    .bio-logo {
+      flex: 1;
+      text-align: center;
+    }
+
+    .bio-logo img {
+      width: 350px;
+      max-width: 100%;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+      animation: float 5s infinite ease-in-out;
+    }
+
+    .bio-logo img:hover {
+      transform: scale(1.12) rotate(2deg);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+    }
+
+    .bio-intro {
+      flex: 2;
+      background: linear-gradient(135deg, #f9f9f9, #e9f7ef);
+      padding: 35px;
+      border-radius: 20px;
+      font-size: 1.3em;
+      line-height: 1.8;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      animation: fadeInUp 2s ease;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .bio-intro:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 80%;
+      border-radius: 20px;
+      animation: zoomIn 0.6s ease-in-out;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .close:hover {
+      transform: scale(1.2);
+    }
+
+    .micro-section {
+      position: relative;
+      padding: 100px 20px;
+      text-align: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    .bg-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: -1;
+    }
+
+    .micro-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    .micro-card {
+      width: 220px;
+      height: 220px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: pointer;
+      background: white;
+      border: 4px solid #4fc3f7;
+      animation: zoomIn 1.5s ease-in-out;
+    }
+
+    .micro-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: white;
+      transition: transform 0.6s ease;
+    }
+
+    .micro-card:hover {
+      transform: scale(1.15) rotate(-3deg);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.6);
+    }
+    .micro-card:hover img {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title-box">
+      <h1>BIOFASHION</h1>
+    </div>
+  </header>
+
+  <section class="bio-section">
+    <div class="bio-logo">
+      <img id="logoImg" src="https://i.postimg.cc/DzH3rYTx/f58605bd-6eab-4719-9994-350dbb104678.jpg" alt="Logo Biofashion">
+    </div>
+    <div class="bio-intro">
+      La moda es una de las industrias con mayor impacto ambiental, lo que impulsa la necesidad de adoptar modelos sostenibles. 
+      Esta macroempresa propone una alternativa ecológica basada en procesos responsables: obtención de prendas con materiales reciclados o sostenibles, 
+      transformación y rediseño para alargar su vida útil, higienización eficiente con bajo consumo de recursos y comercialización bajo principios de economía circular. 
+      Con ello, buscamos ofrecer moda competitiva y de calidad, reduciendo la huella ambiental y promoviendo un consumo consciente.
+    </div>
+  </section>
+
+  <div id="logoModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
+
+  <section class="micro-section">
+    <video autoplay muted loop playsinline class="bg-video">
+      <source src="https://cdn.pixabay.com/video/2019/12/30/30703-383980330_tiny.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <div class="micro-grid">
+      <a href="secondlife.html" class="micro-card">
+        <img src="https://i.postimg.cc/RVLmkR70/second-life.jpg" alt="Second Life">
+      </a>
+      <a href="ecofashion.html" class="micro-card">
+        <img src="https://i.postimg.cc/JhnRckBz/ecofashion.jpg" alt="Ecofashion">
+      </a>
+      <a href="biowash.html" class="micro-card">
+        <img src="https://i.postimg.cc/bv2Bhy7R/biowash12222.jpg" alt="Biowash">
+      </a>
+    </div>
+
+    <div class="micro-grid">
+      <a href="https://boker124.github.io/ecomarketing" class="micro-card">
+        <img src="https://i.postimg.cc/VkZxwHdz/ecomarketing.jpg" alt="Eco Marketing">
+      </a>
+      <a href="https://boker124.github.io/ta-usada" class="micro-card">
+        <img src="https://i.postimg.cc/vBfkWYXm/ta-usada.jpg" alt="Tà Usada">
+      </a>
+    </div>
+  </section>
+
+  <script>
+    const modal = document.getElementById("logoModal");
+    const logo = document.getElementById("logoImg");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    logo.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+    }
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
